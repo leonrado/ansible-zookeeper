@@ -1,4 +1,14 @@
 ---
+
+- name: create directory
+  file:
+    path: "{{ zookeeper_root_dir }}"
+    state: present
+    state: directory
+    recurse: yes
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_group }}"
+    
 - name: Create zookeeper group
   group:
     name: '{{ zookeeper_group }}'
