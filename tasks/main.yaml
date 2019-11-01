@@ -137,7 +137,7 @@
 
 - name: Recursively change ownership of a directory
   file:
-    path: "{{ zookeeper_data_dir }}/"{{ zookeeper_id }}"
+    path: "{{ zookeeper_data_dir }}"/"{{ zookeeper_id }}"
     state: directory
     recurse: yes
     owner: "{{ zookeeper_user }}"
