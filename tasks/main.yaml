@@ -134,14 +134,6 @@
     - Restart ZooKeeper service
   tags:
     - zookeeper_config
-
-- name: Recursively change ownership of a directory
-  file:
-    path: "{{ zookeeper_data_dir }}"/"{{ zookeeper_id }}"
-    state: directory
-    recurse: yes
-    owner: "{{ zookeeper_user }}"
-    group: "{{ zookeeper_group }}"
     
 - name: Template ZooKeeper systemd service file
   template:
