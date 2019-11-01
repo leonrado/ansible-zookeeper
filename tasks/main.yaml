@@ -39,7 +39,16 @@
   when: not dir.stat.exists
   tags:
     - zookeeper_unpack
-
+ 
+- name: Fix Permissions
+  file:
+    path: '{{ zookeeper_root_dir }}/{{ zookeeper_version }}'
+    state: directory
+    recurse: yes
+    owner: '{{ zookeeper_group }}'
+    group: '{{ zookeeper_user }}'
+ 
+ 
 - name: Create symlink to ZooKeeper installation
   file:
     src: '{{ zookeeper_install_dir }}'
