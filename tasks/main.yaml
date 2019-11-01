@@ -18,12 +18,12 @@
 
 - name: Check if ZooKeeper has already been downloaded and unpacked
   stat:
-    path: '{{ zookeeper_root_dir }}/zookeeper-{{ zookeeper_version }}'
+    path: '{{ zookeeper_root_dir }}/{{ zookeeper_filename }}'
   register: dir
 
 - name: Download Apache ZooKeeper
   get_url:
-    url: "{{ zookeeper_mirror }}/zookeeper-{{ zookeeper_version }}/apache-zookeeper-{{ zookeeper_version }}.tar.gz"
+    url: "{{ zookeeper_mirror }}/zookeeper-{{ zookeeper_version }}/{{ zookeeper_filename }}.tar.gz"
     dest: /tmp
   when: not dir.stat.exists
   tags:
@@ -31,7 +31,7 @@
 
 - name: Unpack Apache ZooKeeper
   unarchive:
-    src: /tmp/apache-zookeeper-{{ zookeeper_version }}.tar.gz
+    src: /tmp/{{ zookeeper_filename }}.tar.gz
     dest: '{{ zookeeper_root_dir }}'
     copy: no
     group: '{{ zookeeper_group }}'
@@ -42,7 +42,7 @@
  
 - name: Fix Permissions
   file:
-    path: '{{ zookeeper_root_dir }}/{{ zookeeper_version }}'
+    path: '{{ zookeeper_root_dir }}/{{ zookeeper_filename }}'
     state: directory
     recurse: yes
     owner: '{{ zookeeper_group }}'
@@ -51,7 +51,7 @@
  
 - name: Create symlink to ZooKeeper installation
   file:
-    src: '{{ zookeeper_install_dir }}'
+    src: '{{ zookeeper_filename }}'
     dest: '{{ zookeeper_dir }}'
     state: link
     group: '{{ zookeeper_group }}'
